@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { DataService, RickAndMortyCharacter } from 'src/app/data.service';
+import { CacheService } from 'src/app/cache.service';
+import { RickAndMortyCharacter } from 'src/app/database/rickAndMortyCharacter';
 
 @Component({
   selector: 'app-character',
@@ -11,10 +12,10 @@ export class CharacterComponent {
 
   rickAndMortyCharacters: RickAndMortyCharacter[] = [];
 
-  constructor(private rickAndMortyService: DataService) {
+  constructor(private rickAndMortyService: CacheService) {
     this.rickAndMortyService.characters$.subscribe({
       next: (value) => {
-        this.rickAndMortyCharacters = value.results;
+        this.rickAndMortyCharacters = value;
       }
     })
 
