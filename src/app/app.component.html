@@ -1,12 +1,17 @@
-<h1>Title</h1>
+<div class="my-4 mx-4">
 
-<nav>
-  <a class="button" routerLink="/crisis-list" routerLinkActive="activebutton" ariaCurrentWhenActive="page">
-    Crisis Center
-  </a> |
-  <a class="button" routerLink="/heroes-list" routerLinkActive="activebutton" ariaCurrentWhenActive="page">
-    Heroes
-  </a>
-</nav>
+  <nav >
+    <a class="text-xl border-solid border-4 rounded-lg  border-neutral-400 mr-2 p-1" routerLink="/crisis-list"
+      routerLinkActive="bg-sky-400" ariaCurrentWhenActive="page">
+      Crisis Center
+    </a> 
+    <a class="text-xl border-solid border-4 rounded-lg border-neutral-400 p-1" routerLink="/heroes-list"
+      routerLinkActive="bg-sky-400" ariaCurrentWhenActive="page">
+      Heroes
+    </a>
+  </nav>
 
-<router-outlet></router-outlet>
+  <div class="mt-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
