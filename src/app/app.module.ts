@@ -2,26 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { CrisisListComponent } from './crisis-list/crisis-list.component';
-import { HeroesListComponent } from './heroes-list/heroes-list.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CharacterComponent } from './rick-and-morty/character/character.component';
+import { RickAndMortyModule } from './rick-and-morty/rick-and-morty.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrisisListComponent,
-    HeroesListComponent,
     NotFoundComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: 'crisis-list', component: CrisisListComponent },
-      { path: 'heroes-list', component: HeroesListComponent },
-      { path: '', redirectTo: '/heroes-list', pathMatch: 'full' },
+      { path: 'rick-and-morty', component: CharacterComponent },
+      { path: '', redirectTo: '/rick-and-morty', pathMatch: 'full' },
       { path: '**', component: NotFoundComponent },
-    ])
+    ]),
+    RickAndMortyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
