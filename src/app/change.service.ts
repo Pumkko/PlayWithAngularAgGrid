@@ -5,7 +5,7 @@ import { RickAndMortyEpisode } from './database/rickAndMortyEpisode';
 
 
 
-export type GenerateChangeProps<T extends {id: number}, TName extends string> = {objectName: TName} & {
+export type GenerateChangeProps<T extends {id: number}, TName extends string> = { objectName: TName, id: number} & {
   [K in keyof Omit<T, 'id'>]: {
     nameOfProperty: K;
     newValue: T[K];

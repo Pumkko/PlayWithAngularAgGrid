@@ -37,6 +37,7 @@ export class CharacterComponent {
 
         this.changeService.pushChange({
           objectName: 'RickAndMortyCharacter',
+          id: params.data.id,
           nameOfProperty: 'type',
           newValue: params.newValue,
           oldValue: params.oldValue
