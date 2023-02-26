@@ -46,5 +46,11 @@ export class CharacterComponent {
       this.rickAndMortyCharacters = value;
     });
   }
+
+  onRefresh() {
+    this.rickAndMortyService.fetchRickAndMortyCharactersAsync(true).then((value) => {
+      this.rickAndMortyCharacters = value;
+    });
+  }
 }
 
