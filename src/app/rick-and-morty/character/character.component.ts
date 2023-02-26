@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { CacheService } from 'src/app/cache.service';
+import { ChangeService } from 'src/app/change.service';
 import { RickAndMortyCharacter } from 'src/app/database/rickAndMortyCharacter';
 
 @Component({
@@ -25,8 +26,24 @@ export class CharacterComponent {
     },
     {
       headerName: "Type",
+      editable: true,
       valueGetter: (params) => params.data?.type,
-      flex: 1
+      valueSetter: (params) => {
+        if(params.oldValue === params.newValue){
+          return false;
+        }
+
+        params.data.type = params.newValue;
+
+        this.changeService.pushChange({
+          objectName: 'RickAndMortyCharacter',
+          nameOfProperty: 'type',
+          newValue: params.newValue,
+          oldValue: params.oldValue
+        });
+        return true;
+      },
+      flex: 1 
     },
     {
       headerName: "Created",
@@ -41,7 +58,7 @@ export class CharacterComponent {
     filter: true,
   };
   
-  constructor(private rickAndMortyService: CacheService) {
+  constructor(private rickAndMortyService: CacheService, private changeService: ChangeService) {
     this.rickAndMortyService.fetchRickAndMortyCharactersAsync().then((value) => {
       this.rickAndMortyCharacters = value;
     });
