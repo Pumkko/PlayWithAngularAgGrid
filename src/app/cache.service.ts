@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { catchError, from, map, of, switchMap, tap } from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
+import {  ReplaySubject} from 'rxjs';
 import { db } from './database/db';
 import { RickAndMortyCharacter } from './database/rickAndMortyCharacter';
-
-
 interface RickAndMortyCharacterResponse {
   results: RickAndMortyCharacter[]
 }
@@ -14,6 +11,10 @@ interface RickAndMortyCharacterResponse {
   providedIn: 'root'
 })
 export class CacheService {
+
+
+  private rickAndMortyCharacterSubject = new ReplaySubject<RickAndMortyCharacter[]>(1);
+  rickAndMortyCharacters$ = this.rickAndMortyCharacterSubject.asObservable();
 
   async fetchRickAndMortyCharactersAsync(bustCache = false): Promise<RickAndMortyCharacter[]> {
     let cachedCharacters: RickAndMortyCharacter[] = [];
@@ -28,9 +29,10 @@ export class CacheService {
       const response = await fetch('https://rickandmortyapi.com/api/character');
       const characters = await response.json() as RickAndMortyCharacterResponse;
       await db.rickAndMortyCharacters.bulkAdd(characters.results);
-      return characters.results;
+      cachedCharacters = characters.results;
     } 
 
+    this.rickAndMortyCharacterSubject.next(cachedCharacters);
     return cachedCharacters;
   }
 }

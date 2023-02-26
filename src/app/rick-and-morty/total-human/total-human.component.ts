@@ -15,13 +15,13 @@ export class TotalHumanComponent {
   private rickAndMortyCharacters: RickAndMortyCharacter[] = [];
   totalHuman = 0;
 
-
-
   constructor(cacheService: CacheService, changeService: ChangeService) {
-    cacheService.fetchRickAndMortyCharactersAsync().then(
-      v => { 
-        this.rickAndMortyCharacters = v;
-        this.totalHuman = this.rickAndMortyCharacters.filter(c => this.isTypeHuman(c.type)).length;
+    cacheService.rickAndMortyCharacters$.subscribe(
+      {
+        next: v => { 
+          this.rickAndMortyCharacters = v;
+          this.totalHuman = this.rickAndMortyCharacters.filter(c => this.isTypeHuman(c.type)).length;
+        }
       }
     );
 
