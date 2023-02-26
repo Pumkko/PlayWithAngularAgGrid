@@ -8,19 +8,12 @@ import { RickAndMortyCharacter } from 'src/app/database/rickAndMortyCharacter';
   styleUrls: ['./character.component.scss']
 })
 export class CharacterComponent {
-
-
   rickAndMortyCharacters: RickAndMortyCharacter[] = [];
 
   constructor(private rickAndMortyService: CacheService) {
-    this.rickAndMortyService.characters$.subscribe({
-      next: (value) => {
-        this.rickAndMortyCharacters = value;
-      }
-    })
-
+    this.rickAndMortyService.fetchRickAndMortyCharactersAsync().then((value) => {
+      this.rickAndMortyCharacters = value;
+    });
   }
-
-
 }
 
