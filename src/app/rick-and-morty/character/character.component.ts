@@ -35,8 +35,8 @@ export class CharacterComponent {
 
         params.data.type = params.newValue;
 
-        this.changeService.pushChange({
-          objectName: 'RickAndMortyCharacter',
+        this.changeService.pushChangeAsync({
+          objectName: 'rickAndMortyCharacters',
           id: params.data.id,
           nameOfProperty: 'type',
           newValue: params.newValue,
@@ -59,6 +59,7 @@ export class CharacterComponent {
     filter: true,
   };
   
+  /**DbUpdater do better, it was a quick and dirty just to try */
   constructor(private rickAndMortyService: CacheService, private changeService: ChangeService) {
     this.rickAndMortyService.fetchRickAndMortyCharactersAsync().then((value) => {
       this.rickAndMortyCharacters = value;

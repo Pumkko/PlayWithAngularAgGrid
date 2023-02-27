@@ -3,11 +3,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch" ,
+      "name": "ng serve",
       "type": "chrome",
       "request": "launch",
+      "preLaunchTask": "npm: start",
       "url": "http://localhost:4200/",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
     },
     {
       "name": "ng test",

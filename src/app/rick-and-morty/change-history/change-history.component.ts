@@ -15,7 +15,7 @@ export class ChangeHistoryComponent {
 
   constructor(changeService: ChangeService){
     changeService.change$.pipe(
-      filter(v => v.objectName === "RickAndMortyCharacter")
+      filter(v => v.objectName === "rickAndMortyCharacters")
     ).subscribe(v => {
       this.rickAndMortyCharacterChange.push(v as RickAndMortyCharacterChange);
     });

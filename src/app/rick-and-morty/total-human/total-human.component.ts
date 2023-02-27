@@ -26,7 +26,7 @@ export class TotalHumanComponent {
     );
 
     changeService.change$.pipe(
-      filter(v => v.objectName === "RickAndMortyCharacter")
+      filter(v => v.objectName === "rickAndMortyCharacters")
     ).subscribe((c => {
       if(c.nameOfProperty !== "type"){
         return;
