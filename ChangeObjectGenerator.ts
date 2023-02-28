@@ -40,7 +40,8 @@ type GenerateChange<TTableName extends DeclaredTables> = ({
         newValue: TablePropType<TTableName, Prop>,
         oldValue: TablePropType<TTableName, Prop>
     }
-})[keyof Database[TTableName][0]];
+})[TableProps<TTableName>];
+
 
 class ChangeService {
     pushChange<TTableName extends DeclaredTables>(change: GenerateChange<TTableName>){
