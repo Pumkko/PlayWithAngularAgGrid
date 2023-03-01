@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
-import Dexie from 'dexie';
+import Dexie, { IndexableType, Table } from 'dexie';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { AppDb, db } from './database/db';
-import { RickAndMortyCharacter } from './database/rickAndMortyCharacter';
-import { RickAndMortyEpisode } from './database/rickAndMortyEpisode';
 import { NetworkService } from './network.service';
 
 
-export type AppDbTableProperties = keyof Omit<AppDb, keyof Dexie>
+export type DeclaredTables = Omit<AppDb, keyof Dexie>
+type ExtractModelType<TTable> = TTable extends Table<infer T, IndexableType> ? T : never;
+type ExtractPropertyInModelType<TTableName extends keyof DeclaredTables> = Omit<ExtractModelType<AppDb[TTableName]>, 'id'>;
 
-export type GenerateChangeProps<T extends {id: number}, TName extends AppDbTableProperties> = { objectName: TName, id: number} & {
-  [K in keyof Omit<T, 'id'>]: {
+export type GenerateChangeProps<TTableName extends keyof DeclaredTables> =  {
+  [K in keyof ExtractPropertyInModelType<TTableName>]: {
+    objectName: TTableName;
+    id: number;
     nameOfProperty: K;
-    newValue: T[K];
-    oldValue: T[K];
+    newValue: ExtractModelType<AppDb[TTableName]>[K];
+    oldValue: ExtractModelType<AppDb[TTableName]>[K];
   }
-}[keyof Omit<T, 'id'>];
+}[keyof ExtractPropertyInModelType<TTableName>];
 
 
-export type RickAndMortyCharacterChange = GenerateChangeProps<RickAndMortyCharacter, 'rickAndMortyCharacters'>;
-export type RickAndMortyEpisodeChange = GenerateChangeProps<RickAndMortyEpisode, 'rickAndMortyEpisodes'>;
 
-export type Change = RickAndMortyCharacterChange | RickAndMortyEpisodeChange
+export type Change = {
+  [K in keyof DeclaredTables]:  GenerateChangeProps<K>
+}[keyof DeclaredTables]
+
+
+
+
 
 @Injectable({
   providedIn: 'root'
