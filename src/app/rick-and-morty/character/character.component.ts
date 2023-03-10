@@ -80,17 +80,17 @@ export class CharacterComponent {
     this.gridApi = event.api;
   }
 
-  onTurnIntoAlien() {
-    this.rickAndMortyCharacters.forEach(async (c) => {
+  async onTurnIntoAlien() {
+    for (const character of this.rickAndMortyCharacters) {
       await this.changeService.pushChangeAsync({
         objectName: 'rickAndMortyCharacters',
-        id: c.id,
+        id: character.id,
         nameOfProperty: 'species',
         newValue: 'Alien',
-        oldValue: c.species,
+        oldValue: character.species,
       });
-      c.species = 'Alien';
-    });
+      character.species = 'Alien';
+    }
 
     this.gridApi && this.gridApi.refreshCells();
   }
