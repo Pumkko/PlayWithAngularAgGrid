@@ -1,14 +1,24 @@
-
-
 <app-total-human></app-total-human>
 <ag-grid-angular
-   style="width: 100%; height: 50vh"
-   class="ag-theme-alpine"
-   [columnDefs]="columnDefs"
-   [defaultColDef]="defaultColDef"
-   [rowData]="rickAndMortyCharacters"
-   [rowSelection]="'multiple'"
-   [animateRows]="true"
- ></ag-grid-angular>
+  style="width: 100%; height: 50vh"
+  class="ag-theme-alpine"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="rickAndMortyCharacters"
+  (gridReady)="onGridReady($event)"
+  [rowSelection]="'multiple'"
+  [animateRows]="true"
+></ag-grid-angular>
 
- <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="onRefresh()">Refresh</button>
+<button
+  class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  (click)="onTurnIntoAlien()"
+>
+  Turn Into Alien
+</button>
+<button
+  class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  (click)="onRefresh()"
+>
+  Refresh
+</button>
