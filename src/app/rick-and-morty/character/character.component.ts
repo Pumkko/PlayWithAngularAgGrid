@@ -3,6 +3,7 @@ import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { CacheService } from 'src/app/cache.service';
 import { ChangeService } from 'src/app/change.service';
 import { RickAndMortyCharacter } from 'src/app/database/rickAndMortyCharacter';
+import { SpecieHeaderComponent } from '../specie-header/specie-header.component';
 
 @Component({
   selector: 'app-character',
@@ -27,29 +28,30 @@ export class CharacterComponent {
     },
     {
       headerName: 'Species',
-      valueGetter: (params) => params.data?.species,
-      flex: 1,
-    },
-    {
-      headerName: 'Type',
+      headerComponent: SpecieHeaderComponent,
       editable: true,
-      valueGetter: (params) => params.data?.type,
+      valueGetter: (params) => params.data?.species,
       valueSetter: (params) => {
         if (params.oldValue === params.newValue) {
           return false;
         }
 
-        params.data.type = params.newValue;
+        params.data.species = params.newValue;
 
         this.changeService.pushChangeAsync({
           objectName: 'rickAndMortyCharacters',
           id: params.data.id,
-          nameOfProperty: 'type',
+          nameOfProperty: 'species',
           newValue: params.newValue,
           oldValue: params.oldValue,
         });
         return true;
       },
+      flex: 1,
+    },
+    {
+      headerName: 'Type',
+      valueGetter: (params) => params.data?.type,
       flex: 1,
     },
     {

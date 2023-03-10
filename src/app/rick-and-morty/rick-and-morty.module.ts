@@ -1,19 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CharacterComponent } from './character/character.component';
+import { NgModule } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
-import { TotalHumanComponent } from './total-human/total-human.component';
-
-
+import { CharacterComponent } from './character/character.component';
+import { SpecieHeaderComponent } from './specie-header/specie-header.component';
+import { TotalAlienService } from './total-alien.service';
 
 @NgModule({
-  declarations: [
-    CharacterComponent,
-    TotalHumanComponent
-  ],
-  imports: [
-    CommonModule,
-    AgGridModule
-  ]
+  declarations: [CharacterComponent, SpecieHeaderComponent],
+  providers: [TotalAlienService],
+  imports: [CommonModule, AgGridModule],
 })
-export class RickAndMortyModule { }
+export class RickAndMortyModule {}

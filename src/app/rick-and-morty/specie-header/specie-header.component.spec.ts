@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TotalHumanComponent } from './total-human.component';
+import { SpecieHeaderComponent } from './specie-header.component';
 
-describe('TotalHumanComponent', () => {
-  let component: TotalHumanComponent;
-  let fixture: ComponentFixture<TotalHumanComponent>;
+describe('SpecieHeaderComponent', () => {
+  let component: SpecieHeaderComponent;
+  let fixture: ComponentFixture<SpecieHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TotalHumanComponent ]
+      declarations: [ SpecieHeaderComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TotalHumanComponent);
+    fixture = TestBed.createComponent(SpecieHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

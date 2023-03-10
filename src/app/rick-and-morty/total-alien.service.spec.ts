@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RickAndMortyService } from './rick-and-morty.service';
+import { TotalAlienService } from './total-alien.service';
 
-describe('RickAndMortyServiceService', () => {
-  let service: RickAndMortyService;
+describe('TotalAlienServiceService', () => {
+  let service: TotalAlienService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RickAndMortyService);
+    service = TestBed.inject(TotalAlienService);
   });
 
   it('should be created', () => {
