@@ -6,9 +6,10 @@ import { CharacterComponent } from './character/character.component';
 import { EpisodeComponent } from './episode/episode.component';
 import { SpecieHeaderComponent } from './specie-header/specie-header.component';
 import { TotalAlienService } from './total-alien.service';
+import { GridHeaderComponent } from './grid-header/grid-header.component';
 
 @NgModule({
-  declarations: [CharacterComponent, SpecieHeaderComponent, EpisodeComponent],
+  declarations: [CharacterComponent, SpecieHeaderComponent, EpisodeComponent, GridHeaderComponent],
   providers: [TotalAlienService],
   imports: [
     CommonModule,

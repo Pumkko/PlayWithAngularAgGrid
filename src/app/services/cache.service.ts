@@ -3,8 +3,8 @@ import { ReplaySubject } from 'rxjs';
 import { db } from '../database/db';
 import { RickAndMortyCharacter } from '../database/rickAndMortyCharacter';
 import { RickAndMortyEpisode } from '../database/rickAndMortyEpisode';
-interface RickAndMortyCharacterResponse {
-  results: RickAndMortyCharacter[];
+interface RickAndMortyApiResponse<T> {
+  results: T[];
 }
 
 @Injectable({
@@ -28,12 +28,31 @@ export class CacheService {
 
     if (cachedCharacters.length === 0) {
       const response = await fetch('https://rickandmortyapi.com/api/character');
-      const characters = (await response.json()) as RickAndMortyCharacterResponse;
+      const characters = (await response.json()) as RickAndMortyApiResponse<RickAndMortyCharacter>;
       await db.rickAndMortyCharacters.bulkAdd(characters.results);
       cachedCharacters = characters.results;
     }
 
     this.rickAndMortyCharacterSubject.next(cachedCharacters);
     return cachedCharacters;
+  }
+
+  async fetchRickAndMortyEpisodesAsync(bustCache = false): Promise<RickAndMortyEpisode[]> {
+    let cachedEpisodes: RickAndMortyEpisode[] = [];
+    if (bustCache) {
+      await db.rickAndMortyEpisodes.clear();
+    } else {
+      cachedEpisodes = await db.rickAndMortyEpisodes.toArray();
+    }
+
+    if (cachedEpisodes.length === 0) {
+      const response = await fetch('https://rickandmortyapi.com/api/episode');
+      const characters = (await response.json()) as RickAndMortyApiResponse<RickAndMortyEpisode>;
+      await db.rickAndMortyEpisodes.bulkAdd(characters.results);
+      cachedEpisodes = characters.results;
+    }
+
+    this.rickAndMortyEpisodeSubject.next(cachedEpisodes);
+    return cachedEpisodes;
   }
 }
