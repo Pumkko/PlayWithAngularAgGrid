@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
-import { CacheService } from 'src/app/cache.service';
-import { ChangeService } from 'src/app/change.service';
 import { RickAndMortyCharacter } from 'src/app/database/rickAndMortyCharacter';
+import { CacheService } from 'src/app/services/cache.service';
+import { ChangeService } from 'src/app/services/change.service';
 import { SpecieHeaderComponent } from '../specie-header/specie-header.component';
 
 @Component({

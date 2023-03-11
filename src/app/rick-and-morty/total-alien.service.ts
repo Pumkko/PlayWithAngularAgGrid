@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { filter, ReplaySubject } from 'rxjs';
-import { CacheService } from '../cache.service';
-import { ChangeService } from '../change.service';
 import { RickAndMortyCharacter } from '../database/rickAndMortyCharacter';
+import { CacheService } from '../services/cache.service';
+import { ChangeService } from '../services/change.service';
 
 @Injectable()
 export class TotalAlienService {

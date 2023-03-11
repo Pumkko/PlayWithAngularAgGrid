@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ChangeService } from './change.service';
-import { NetworkService } from './network.service';
+import { ChangeService } from './services/change.service';
+import { NetworkService } from './services/network.service';
 
 @Component({
   selector: 'app-root',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import Dexie, { IndexableType, Table } from 'dexie';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { AppDb, db } from '../database/db';
 
-import { AppDb, db } from './database/db';
 import { NetworkService } from './network.service';
 
 export type DeclaredTables = Omit<AppDb, keyof Dexie>;
