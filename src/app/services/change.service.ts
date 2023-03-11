@@ -6,13 +6,8 @@ import { AppDb, db } from '../database/db';
 import { NetworkService } from './network.service';
 
 export type DeclaredTables = Omit<AppDb, keyof Dexie>;
-type ExtractModelType<TTable> = TTable extends Table<infer T, IndexableType>
-  ? T
-  : never;
-type ExtractPropertyInModelType<TTableName extends keyof DeclaredTables> = Omit<
-  ExtractModelType<AppDb[TTableName]>,
-  'id'
->;
+type ExtractModelType<TTable> = TTable extends Table<infer T, IndexableType> ? T : never;
+type ExtractPropertyInModelType<TTableName extends keyof DeclaredTables> = Omit<ExtractModelType<AppDb[TTableName]>, 'id'>;
 
 export type GenerateChangeProps<TTableName extends keyof DeclaredTables> = {
   [K in keyof ExtractPropertyInModelType<TTableName>]: {
@@ -46,9 +41,7 @@ export class ChangeService {
   private isOnline = true;
 
   constructor(networkService: NetworkService) {
-    networkService.healthCheck$.subscribe(
-      (isOnline) => (this.isOnline = isOnline)
-    );
+    networkService.healthCheck$.subscribe((isOnline) => (this.isOnline = isOnline));
   }
 
   async pushChangeAsync(change: Change) {
@@ -57,10 +50,7 @@ export class ChangeService {
     });
 
     if (!this.isOnline) {
-      this.changeToSyncSubject.next([
-        ...this.changeToSyncSubject.value,
-        change,
-      ]);
+      this.changeToSyncSubject.next([...this.changeToSyncSubject.value, change]);
     } else {
       await this.sendChangeToServer(change);
     }

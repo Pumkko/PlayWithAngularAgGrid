@@ -8,7 +8,6 @@ import { SpecieHeaderComponent } from '../specie-header/specie-header.component'
 @Component({
   selector: 'app-character',
   templateUrl: './character.component.html',
-  styleUrls: ['./character.component.scss'],
 })
 export class CharacterComponent {
   rickAndMortyCharacters: RickAndMortyCharacter[] = [];
@@ -67,15 +66,10 @@ export class CharacterComponent {
   };
 
   /**DbUpdater do better, it was a quick and dirty just to try */
-  constructor(
-    private rickAndMortyService: CacheService,
-    private changeService: ChangeService
-  ) {
-    this.rickAndMortyService
-      .fetchRickAndMortyCharactersAsync()
-      .then((value) => {
-        this.rickAndMortyCharacters = value;
-      });
+  constructor(private rickAndMortyService: CacheService, private changeService: ChangeService) {
+    this.rickAndMortyService.fetchRickAndMortyCharactersAsync().then((value) => {
+      this.rickAndMortyCharacters = value;
+    });
   }
 
   onGridReady(event: GridReadyEvent) {
@@ -98,10 +92,8 @@ export class CharacterComponent {
   }
 
   onRefresh() {
-    this.rickAndMortyService
-      .fetchRickAndMortyCharactersAsync(true)
-      .then((value) => {
-        this.rickAndMortyCharacters = value;
-      });
+    this.rickAndMortyService.fetchRickAndMortyCharactersAsync(true).then((value) => {
+      this.rickAndMortyCharacters = value;
+    });
   }
 }

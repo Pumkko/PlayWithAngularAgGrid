@@ -6,7 +6,6 @@ import { TotalAlienService } from '../total-alien.service';
 @Component({
   selector: 'app-specie-header',
   templateUrl: './specie-header.component.html',
-  styleUrls: ['./specie-header.component.scss'],
 })
 export class SpecieHeaderComponent implements IHeaderAngularComp {
   params!: IHeaderParams;

@@ -5,7 +5,6 @@ import { NetworkService } from './services/network.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'tryStuff';
@@ -16,13 +15,8 @@ export class AppComponent {
     return this.networkService.healthCheck$;
   }
 
-  constructor(
-    private changeService: ChangeService,
-    private networkService: NetworkService
-  ) {
-    this.changeService.changeToSync$.subscribe(
-      (v) => (this.changeWaitingToBeSync = v.length)
-    );
+  constructor(private changeService: ChangeService, private networkService: NetworkService) {
+    this.changeService.changeToSync$.subscribe((v) => (this.changeWaitingToBeSync = v.length));
   }
 
   async onSynchronize() {

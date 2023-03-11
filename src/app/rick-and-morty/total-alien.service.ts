@@ -16,32 +16,28 @@ export class TotalAlienService {
     cacheService.rickAndMortyCharacters$.subscribe({
       next: (v) => {
         this.rickAndMortyCharacters = v;
-        this._totalAliens = this.rickAndMortyCharacters.filter((c) =>
-          this.isSpecieAlien(c.species)
-        ).length;
+        this._totalAliens = this.rickAndMortyCharacters.filter((c) => this.isSpecieAlien(c.species)).length;
 
         this._totalAlienSubject.next(this._totalAliens);
       },
     });
 
-    changeService.change$
-      .pipe(filter((v) => v.objectName === 'rickAndMortyCharacters'))
-      .subscribe((c) => {
-        if (c.nameOfProperty !== 'species') {
-          return;
-        }
+    changeService.change$.pipe(filter((v) => v.objectName === 'rickAndMortyCharacters')).subscribe((c) => {
+      if (c.nameOfProperty !== 'species') {
+        return;
+      }
 
-        const wasAlien = this.isSpecieAlien(c.oldValue);
-        const isAlien = this.isSpecieAlien(c.newValue);
+      const wasAlien = this.isSpecieAlien(c.oldValue);
+      const isAlien = this.isSpecieAlien(c.newValue);
 
-        if (wasAlien === isAlien) {
-          return;
-        }
+      if (wasAlien === isAlien) {
+        return;
+      }
 
-        isAlien ? this._totalAliens++ : this._totalAliens--;
+      isAlien ? this._totalAliens++ : this._totalAliens--;
 
-        this._totalAlienSubject.next(this._totalAliens);
-      });
+      this._totalAlienSubject.next(this._totalAliens);
+    });
   }
 
   private isSpecieAlien(specie: string) {
